@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MidenQuest - Tile Highlighter
 // @namespace    https://github.com/jarekb84/MidenQuest
-// @version      1.0.2
+// @version      1.0.3
 // @description  Highlights inputted list of map tiles
 // @updateURL    https://raw.githubusercontent.com/jarekb84/MidenQuest/master/TileHighlighter.user.js
 // @author       jarekb84
@@ -34,26 +34,32 @@
     var tiles = $("#tileHighlighter__tileData")
       .val()
       .split(/\r|\n/);
+    var styles = "";
+
     $.each(tiles, function(index, value) {
-      var tileId = "#x" + value.replace(" ", "").replace(",", "y");
+      var tileId = "g#x" + value.replace(" ", "").replace(",", "y");
 
-      var tileElement = $(tileId + " text tspan");
-
-      if (tileElement.length) {
-        tileElement[0].style["fill"] = "pink";
-      }
+      styles += tileId + " text:first-of-type tspan {fill: pink} ";
     });
+
+    addGlobalStyle(styles);
   }
 
-  function delayedHighlight() {
-    setTimeout(highlightTiles, 400);
+  function addGlobalStyle(css) {
+    var tileHighlighterStyles = $("#tileHighlighterStyles");
+
+    if (tileHighlighterStyles.length === 0) {
+      tileHighlighterStyles = $(
+        '<style type="text/css" id="tileHighlighterStyles" />'
+      );
+
+      $("head").append(tileHighlighterStyles);
+    }
+
+    tileHighlighterStyles.html(css);
   }
 
   addContainer();
 
   $("#tileHighlighter__process").click(highlightTiles);
-
-  $("body").on("click", "#MapZoomIn", delayedHighlight);
-  $("body").on("click", "#MapZoomOut", delayedHighlight);
-  $("body").on("click", "#map", delayedHighlight);
 })();
