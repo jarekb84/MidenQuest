@@ -8,6 +8,7 @@
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js
 // @include      http://www.midenquest.com/Game.aspx
 // @include      http://midenquest.com/Game.aspx
+// @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
 (function() {
