@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         MidenQuest - Tile Highlighter
 // @namespace    https://github.com/jarekb84/MidenQuest
-// @version      1.1.1
+// @version      1.1.2
 // @description  Highlights inputted list of map tiles
 // @updateURL    https://raw.githubusercontent.com/jarekb84/MidenQuest/master/TileHighlighter.user.js
 // @author       jarekb84
-// @include      http://www.midenquest.com/*
-// @include      http://midenquest.com/*
+// @include      http://www.midenquest.com/Game.aspx*
+// @include      http://midenquest.com/Game.aspx*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @run-at       document-idle
 // ==/UserScript==
