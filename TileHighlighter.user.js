@@ -1,20 +1,26 @@
 // ==UserScript==
 // @name         MidenQuest - Tile Highlighter
 // @namespace    https://github.com/jarekb84/MidenQuest
-// @version      1.1.2
+// @version      1.1.3
 // @description  Highlights inputted list of map tiles
 // @updateURL    https://raw.githubusercontent.com/jarekb84/MidenQuest/master/TileHighlighter.user.js
 // @author       jarekb84
 // @include      http://www.midenquest.com/Game.aspx*
 // @include      http://midenquest.com/Game.aspx*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+// @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
+// @grant        GM.getValue
+// @grant        GM_getValue
+// @grant        GM.setValue
+// @grant        GM_setValue
 // @run-at       document-idle
 // ==/UserScript==
 
-(function () {
+(async function () {
   "use strict";
 
   var $ = jQuery.noConflict(true);
+  var settings = {};
 
   function addContainer(vertical, horizontal) {
     $('#tileHighlighter').remove();
@@ -54,15 +60,21 @@
 
       var settingsPanel = $('<div id="tileHighlighter__settings__panel" style="display: none; height: 100px;" />');
       var horizontalSettings = $('<div style="margin: 5px 0;"><div>Horizontal Position</div></div>');
-      var left = $('<input type="radio" name="horizontal" value="left" checked><label>Left</label>');
+      var left = $('<input type="radio" name="horizontal" value="left"><label>Left</label>');
+      left.prop('checked', settings.horizontal === 'left')
       var right = $('<input type="radio" name="horizontal" value="right"><label>Right</label>');
+      right.prop('checked', settings.horizontal === 'right')
       horizontalSettings.append(left)
       horizontalSettings.append(right)
       settingsPanel.append(horizontalSettings);
 
       var verticalSettings = $('<div style="margin: 5px 0;"><div>Vertical Position</div></div>');
-      var top = $('<input type="radio" name="vertical" value="top" checked><label>Top</label>');
+      var top = $('<input type="radio" name="vertical" value="top"><label>Top</label>');
+      top.prop('checked', settings.vertical === 'top');
+      
       var bottom = $('<input type="radio" name="vertical" value="bottom"><label>Bottom</label>');
+      bottom.prop('checked', settings.vertical === 'bottom');
+      
       verticalSettings.append(top);
       verticalSettings.append(bottom);
       settingsPanel.append(verticalSettings);
@@ -119,11 +131,21 @@
     $('#tileHighlighter__settings__save').click(function () {
       var vertical = $('input[name=vertical]:checked').val();
       var horizontal = $('input[name=horizontal]:checked').val();
+    
+      GM.setValue('settings.vertical', vertical);
+      GM.setValue('settings.horizontal', horizontal);
+      
+      settings.vertical = vertical;
+      settings.horizontal = horizontal;
+      
       addContainer(vertical, horizontal);
       attachEventHandlers();
     })
   }
 
-  addContainer('top', 'left');
+  settings.vertical = await GM.getValue('settings.vertical', 'top');
+  settings.horizontal = await GM.getValue('settings.horizontal', 'left');
+  
+  addContainer(settings.vertical, settings.horizontal);
   attachEventHandlers();
 })();
