@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         MidenQuest - Tile Highlighter
 // @namespace    https://github.com/jarekb84/MidenQuest
-// @version      1.1.0
+// @version      1.1.1
 // @description  Highlights inputted list of map tiles
 // @updateURL    https://raw.githubusercontent.com/jarekb84/MidenQuest/master/TileHighlighter.user.js
 // @author       jarekb84
-// @include      http://www.midenquest.com/Game.aspx
-// @include      http://midenquest.com/Game.aspx
+// @include      http://www.midenquest.com/*
+// @include      http://midenquest.com/*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @run-at       document-idle
 // ==/UserScript==
@@ -39,7 +39,7 @@
 
       var hilightTilesButton = $("<button id='tileHighlighter__actions__highlightTiles' style='display: none;' >Highlight Tiles</button>");
 
-      var openSettingsAction = $('<a id="tileHighlighter__actions__toggleSettings" alt="Open Settings" href="#" /> ')
+      var openSettingsAction = $('<span id="tileHighlighter__actions__toggleSettings" alt="Open Settings" style="cursor: pointer;" /> ')
       var gearIcon = $('<img style="display: inline-block; margin: 0 0 -4px 10px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEWSURBVDhPldPBSkJBFMbxW1bQpkXtfAtdBIII0RsEEqQLkZ6gwI1L8QVaCIJLe4patQislvoOQbqonYHV/7t47DhTih/84N4zd+5cz4zJihyijDPsqrBpqvieO1ZhXbJ4xiW20IG94AoZNHGHA0R5gE14c9fm1V33EaUGP+E/M5wgyjb8yl94wcjV5BFLOYIa5n+zJqv7lmvYmL6ghXPsI7mADRo100dNHSN8roj0TeHAED47+ED4XAHpIdE+N+AH9dlaWZNv5jWZQg3PQ+OLaJ/D7ZvgPag94c/okPgHV6kgyj00qC5rFe2ETfjEwN33EEXH8xZ2SNqwCXUViP5cXeyld2vidyenwqbRITlFCUvd/k2S/ADy43SMe6/AOAAAAABJRU5ErkJggg==">')
       openSettingsAction.append(gearIcon);
 
